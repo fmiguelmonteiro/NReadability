@@ -1218,8 +1218,8 @@ namespace NReadability
     internal void PrepareArticleContentElement(XElement articleContentElement)
     {
       CleanStyles(articleContentElement);
-      KillBreaks(articleContentElement);
-
+      
+      
       /* Clean out junk from the article content. */
       Clean(articleContentElement, "form");
       Clean(articleContentElement, "object");
@@ -1246,7 +1246,7 @@ namespace NReadability
       /* Remove extra paragraphs. */
       IEnumerable<XElement> paraElements = articleContentElement.GetElementsByTagName("p");
       var elementsToRemove = new List<XElement>();
-
+      
       foreach (XElement paraElement in paraElements)
       {
         string innerText = GetInnerText(paraElement, false);
@@ -1268,6 +1268,7 @@ namespace NReadability
 
       RemoveElements(elementsToRemove);
 
+      KillBreaks(articleContentElement);
       /* Remove br's that are directly before paragraphs. */
       articleContentElement.SetInnerHtml(_BreakBeforeParagraphRegex.Replace(articleContentElement.GetInnerHtml(), "<p"));
     }
